@@ -29,7 +29,9 @@ Create a .env file in the root directory and add the following configuration:
 .env
 
 MONGO_URL=<your-mongodb-url>
+
 JWT_SECRET=<your-jwt-secret>
+
 PORT=<your-preferred-port>
 
 3. Usage
