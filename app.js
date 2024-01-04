@@ -25,7 +25,7 @@ app.set('trust proxy', 1);
 
 
 
-// 100 request per minute rate limiting 
+// 100 request per minute rate limiting
 app.use(
     rateLimiter({
       windowMs: 1 * 60 * 1000,
@@ -49,7 +49,7 @@ app.use('/api/notes', notesRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
-
+app.enable('trust proxy')
 const port = process.env.PORT || 5000;
 const start = async () => {
   try {

@@ -14,7 +14,7 @@ const authenticateUser = async(req,res,next)=>{
 
        const {name,userId} = isTokenValid({token})
        req.user = {name,userId}
-       console.log("fuck this shit")
+      
        next();
     }
      catch (error) {
