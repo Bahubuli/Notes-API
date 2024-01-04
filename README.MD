@@ -42,8 +42,8 @@ npm start
 The API will be accessible at http://localhost:<your-preferred-port>.
 
 
-#API Endpoints
-##GET /api/notes:
+# API Endpoints
+## GET /api/notes:
 Get a list of all notes for the authenticated user.
 
 ##GET /api/notes/:id:
