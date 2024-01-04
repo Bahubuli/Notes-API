@@ -3,7 +3,7 @@ const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
 const { attachCookiesToResponse, createTokenUser } = require("../utils/jwt");
 
-const signup = async (req, res) => {
+const signup = async (req, res,next) => {
     try {
 
 
@@ -26,7 +26,7 @@ const signup = async (req, res) => {
     }
 };
 
-const login = async (req, res) => {
+const login = async (req, res,next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password)
@@ -53,7 +53,7 @@ const login = async (req, res) => {
 
 };
 
-const logout = async (req, res) => {
+const logout = async (req, res,next) => {
   res.cookie("token", "randomstring", {
     httpOnly: true,
     expires: new Date(Date.now() + 1 * 1000),

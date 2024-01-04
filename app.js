@@ -25,13 +25,13 @@ app.set('trust proxy', 1);
 
 
 
-
+// 100 request per minute rate limiting 
 app.use(
-  rateLimiter({
-    windowMs: 15 * 60 * 1000,
-    max: 60,
-  })
-);
+    rateLimiter({
+      windowMs: 1 * 60 * 1000,
+      max: 100,
+    })
+  );
 app.use(helmet());
 app.use(cors());
 app.use(xss());
