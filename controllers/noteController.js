@@ -16,8 +16,8 @@ const createNote = async (req,res,next) => {
 const getAllNote = async (req,res,next) => {
   try {
     const notes = await Note.find({$or: [
-        { user: req.user.userId },                     // Owner condition
-        { sharedWith: { $in: [req.user.userId] } },    // Shared condition
+        { user: req.user.userId },
+        { sharedWith: { $in: [req.user.userId] } },
       ]});
     res.status(StatusCodes.OK).json(notes);
   } catch (error) {

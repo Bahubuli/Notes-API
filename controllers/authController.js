@@ -3,30 +3,28 @@ const { StatusCodes } = require("http-status-codes");
 const CustomError = require("../errors");
 const { attachCookiesToResponse, createTokenUser } = require("../utils/jwt");
 
-const signup = async (req, res,next) => {
-    try {
+const signup = async (req, res, next) => {
+  try {
+    const { email, name, password } = req.body;
 
-
-  const { email, name, password } = req.body;
-
-  const emailAlreadyExists = await User.findOne({ email });
-  if (emailAlreadyExists) {
-    throw new CustomError.BadRequestError("Email already exists");
-  }
-
-  const user = await User.create({ name, email, password });
-
-  const tokenUser = { name: user.name, userId: user._id, role: user.role };
-
-  attachCookiesToResponse({ res, user: tokenUser });
-
-  res.status(StatusCodes.CREATED).send({ user: user.name, tokenUser });
- } catch (error) {
-   next(error)
+    const emailAlreadyExists = await User.findOne({ email });
+    if (emailAlreadyExists) {
+      throw new CustomError.BadRequestError("Email already exists");
     }
+
+    const user = await User.create({ name, email, password });
+
+    const tokenUser = { name: user.name, userId: user._id, role: user.role };
+
+    attachCookiesToResponse({ res, user: tokenUser });
+
+    res.status(StatusCodes.CREATED).send({ user: user.name, tokenUser });
+  } catch (error) {
+    next(error);
+  }
 };
 
-const login = async (req, res,next) => {
+const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     if (!email || !password)
@@ -50,10 +48,9 @@ const login = async (req, res,next) => {
   } catch (error) {
     next(error);
   }
-
 };
 
-const logout = async (req, res,next) => {
+const logout = async (req, res, next) => {
   res.cookie("token", "randomstring", {
     httpOnly: true,
     expires: new Date(Date.now() + 1 * 1000),
