@@ -41,24 +41,25 @@ npm start
 
 The API will be accessible at http://localhost:<your-preferred-port>.
 
-
+# POSTMAN DOCUMENTATION 
+## https://documenter.getpostman.com/view/24882611/2s9YsGgt14
 # API Endpoints
-## GET /api/notes:
+##### GET /api/notes:
 Get a list of all notes for the authenticated user.
 
-##GET /api/notes/:id:
+##### GET /api/notes/:id:
 Get a note by ID for the authenticated user.
 
-##POST /api/notes:
+##### POST /api/notes:
 Create a new note for the authenticated user.
 
-##PUT /api/notes/:id:
+##### PUT /api/notes/:id:
 Update an existing note by ID for the authenticated user.
 
-##DELETE /api/notes/:id:
+##### DELETE /api/notes/:id:
 Delete a note by ID for the authenticated user.
 
-##POST /api/notes/:id/share:
+##### POST /api/notes/:id/share:
 Share a note with another user for the authenticated user.
 
 ##GET /api/search?q=:query:
