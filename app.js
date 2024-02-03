@@ -22,7 +22,7 @@ const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
 app.set('trust proxy', 2);
-
+app.use(express.static('./public'));
 
 // 100 request per minute rate limiting
 app.use(
