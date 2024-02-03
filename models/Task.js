@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 
-const NoteSchema = new mongoose.Schema(
+const TaskSchema = new mongoose.Schema(
   {
     title: {
       type: String,
       minlength: 3,
       maxlength: 50,
-      required: [true, 'Please provide The Note'],
+      required: [true, 'Please provide The task title'],
     },
-    body:{
+    description:{
         type:String,
-        required:[true,"Please provide the note body"],
+        required:[true,"Please provide the task description"],
         minlength: 3,
         maxlength: 1000000,
     },
@@ -21,10 +21,17 @@ const NoteSchema = new mongoose.Schema(
     sharedWith:{
         type:[mongoose.Types.ObjectId],
         ref:'User'
+    },
+    dueDate:{
+        type:Date
+    },
+    status:{
+        type:String,
+        default:"pending"
     }
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-NoteSchema.index({ title: 'text', body: 'text' });
-module.exports = mongoose.model('Note', NoteSchema);
+TaskSchema.index({ title: 'text', description: 'text' });
+module.exports = mongoose.model('Task', TaskSchema);

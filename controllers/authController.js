@@ -12,12 +12,13 @@ const signup = async (req, res, next) => {
       throw new CustomError.BadRequestError("Email already exists");
     }
 
+
     const user = await User.create({ name, email, password });
 
     const tokenUser = { name: user.name, userId: user._id, role: user.role };
 
     attachCookiesToResponse({ res, user: tokenUser });
-
+ console.log(req.body)
     res.status(StatusCodes.CREATED).send({ user: user.name, tokenUser });
   } catch (error) {
     next(error);

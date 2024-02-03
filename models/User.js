@@ -23,35 +23,11 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Please provide password'],
     minlength: 6,
   },
-  verificationToken:String,
-  isVerified:{
-    default:false,
-    type:Boolean
-  },
-  passwordToken:{
-    type:String
-  },
-  passwordTokenExpirationDate:{
-    type:Date
-  },
-  verified:Date
 },
 { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-UserSchema.virtual("addresses", {
-    ref: "Address",
-    localField: "email",
-    foreignField: "email",
-    justOne: false,
-  });
 
-UserSchema.virtual("cart",{
-    ref:"Cart",
-    localField:"email",
-    foreignField:"user",
-    justOne:false
-})
 
 UserSchema.pre('save', async function () {
   // console.log(this.modifiedPaths());

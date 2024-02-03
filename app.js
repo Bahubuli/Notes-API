@@ -15,14 +15,13 @@ const connectDB = require('./db/connect');
 
 //  routers
 const authRouter = require('./routes/authRoutes');
-const notesRouter = require('./routes/notesRoutes');
+const taskRouter = require('./routes/taskRoutes');
 
 // middleware
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
-app.set('trust proxy', 1);
-
+app.set('trust proxy', 2);
 
 
 // 100 request per minute rate limiting
@@ -33,23 +32,24 @@ app.use(
     })
   );
 app.use(helmet());
-app.use(cors());
+const corsOptions = {
+    origin: [ 'http://localhost:5173', 'http://localhost:5174'], // Replace with your frontend domain
+    credentials: true, // Enable credentials (cookies, authorization headers)
+  };
+
+app.use(cors(corsOptions));
 app.use(xss());
 app.use(mongoSanitize());
-
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
-
 app.use(express.static('./public'));
 
 
 app.use('/api/auth', authRouter);
-// app.use('/api/users', userRouter);
-app.use('/api/notes', notesRouter);
-
-app.use(notFoundMiddleware);
+app.use('/api/task', taskRouter);
 app.use(errorHandlerMiddleware);
-app.enable('trust proxy')
+app.use(notFoundMiddleware);
+
 const port = process.env.PORT || 5000;
 const start = async () => {
   try {
@@ -58,9 +58,8 @@ const start = async () => {
       console.log(`Server is listening on port ${port}...`)
     );
   } catch (error) {
-    next(error)
+   console.log("can't connect to mongodb atlas")
   }
 };
 
 start();
-
